@@ -28,6 +28,9 @@ const updateItemController = require ('./controllers/updateItem')
 const editItemController = require ('./controllers/editItem')
 const deleteItemController = require ('./controllers/deleteItem')
 const inventoryController =  require ('./controllers/inventory')
+const searchNfilterController = require('./controllers/searchNfilter')
+const getFilterController = require('./controllers/getFilters')
+
 
 const app = new express()
 mongoose.connect('mongodb://localhost/FreshNGreen')
@@ -72,6 +75,9 @@ app.get('/purchaseHistory',purchaseHistoryController)
 app.get('/updateItem/:id',updateItemController)
 app.get('/deleteItem/:id',deleteItemController)
 app.get('/inventory',inventoryController)
+app.get('/searchNfilter/:search/:brand/:category/:min/:max',searchNfilterController)
+app.get('/getFilters',getFilterController)
+
 
 app.post('/postItem',postItem,postItemController)
 app.post('/createUser',redirectOnAuth,createUserController)
