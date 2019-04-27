@@ -31,8 +31,8 @@ module.exports = async(req,res)=>{
                 if(Cart.items[i].quantity < quantityAvailable)
                 {
                     price=parseFloat(Cart.items[i].price,10)
-                    Cart.items[i].price=price+parseFloat(item_price,10)+""
-                    Cart.price=parseFloat(Cart.price,10)+parseFloat(item_price,10)+""
+                    Cart.items[i].price=(price+parseFloat(item_price,10)).toFixed(2)+""
+                    Cart.price=(parseFloat(Cart.price,10)+parseFloat(item_price,10)).toFixed(2)+""
                     Cart.items[i].quantity = (Cart.items[i].quantity)+1
                    
                 }
@@ -44,7 +44,7 @@ module.exports = async(req,res)=>{
         {
 
             Cart.items.push({"itemId":itemId,"quantity":1,"price":item_price,"name":item_name,"imagePath":item_imgPath})
-            Cart.price = parseFloat(Cart.price,10)+parseFloat(item_price,10)+""
+            Cart.price = (parseFloat(Cart.price,10)+parseFloat(item_price,10)).toFixed(2)+""
         }
         req.session.cart=Cart
         console.log("Cart is here :",Cart)

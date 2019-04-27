@@ -27,15 +27,15 @@ module.exports = async(req,res)=>{
                     price=parseFloat(Cart.items[i].price,10)
                     if(change == "dec" && quantity>1)
                     {
-                        Cart.items[i].price=price-(price/Cart.items[i].quantity)+""
-                        Cart.price=parseFloat(Cart.price,10)-(price/Cart.items[i].quantity)+""
+                        Cart.items[i].price=(price-(price/Cart.items[i].quantity)).toFixed(2)+""
+                        Cart.price=(parseFloat(Cart.price,10)-(price/Cart.items[i].quantity)).toFixed(2)+""
                         Cart.items[i].quantity = (Cart.items[i].quantity)-1
                     }                    
                     else if(change == "inc" && quantity < quantityAvailable)
                     {
                       
-                        Cart.items[i].price=price+(price/Cart.items[i].quantity)+""
-                        Cart.price=parseFloat(Cart.price,10)+(price/Cart.items[i].quantity)+""
+                        Cart.items[i].price=(price+(price/Cart.items[i].quantity)).toFixed(2)+""
+                        Cart.price=(parseFloat(Cart.price,10)+(price/Cart.items[i].quantity)).toFixed(2)+""
                         Cart.items[i].quantity = (Cart.items[i].quantity)+1
                     }
 
