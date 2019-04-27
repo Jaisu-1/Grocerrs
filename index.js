@@ -75,7 +75,7 @@ app.get('/purchaseHistory',purchaseHistoryController)
 app.get('/updateItem/:id',updateItemController)
 app.get('/deleteItem/:id',deleteItemController)
 app.get('/inventory',inventoryController)
-app.get('/searchNfilter/:search/:brand/:category/:min/:max',searchNfilterController)
+app.get('/searchNfilter/:search/:brand/:category/:minPrice/:maxPrice',searchNfilterController)
 app.get('/getFilters',getFilterController)
 
 
