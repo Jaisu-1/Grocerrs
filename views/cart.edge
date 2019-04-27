@@ -1,0 +1,54 @@
+@layout('layouts.app')
+
+@section('content')
+<script>		
+  $(document).ready(function(){		
+      $("li").removeClass("active");		
+      $("li.cart").addClass("active");		
+  });		
+</script>
+    @if(EmptyCart)
+        <h1>Cart is Empty</h1>
+    @else
+    <div class="col-lg-12">
+    <div class="row">
+        @each(item in ItemsArray)
+        <div class="col-lg-3 col-md-6 mb-4">
+           <div class="card h-100">
+              <form action="/updateCart" method="POST">
+                <a href="#"><img class="card-img-top" src="{{item.imagePath}}" alt=""></a>
+                <div class="card-body">
+                  <h4 class="card-title">
+                    <a href="/item/{{item.itemId}}">{{item.name}}</a>
+                  </h4>
+                  <h5>${{item.price}}</h5>
+                  <h5>{{item.quantity}}</h5>
+                  <input type="text" style="display:none" name="itemId" value="{{item.itemId}}">
+                  <input type="text" style="display:none" name="quantity" value="{{item.quantity}}">
+                  
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-success" name="change" value="inc">+</button>
+                    <button class="btn btn-success" name="change" value="dec">-</button>
+                    
+                </div>
+               
+             </form>
+             <form action="/removeFromCart" method="POST">
+              <input type="text" style="display:none" name="itemId" value="{{item.itemId}}">
+                
+              <button class="btn btn-danger">Remove</button>
+            </form>
+            </div>
+          </div>
+          <br>
+        @endeach
+        
+    </div>
+    </div>
+    <h3>{{price}}</h3>
+    <form action="/storeTransaction" method="POST">
+        <button class="btn btn-primary">Check out & Pay</button>
+    </form>  
+    @endif
+@endsection

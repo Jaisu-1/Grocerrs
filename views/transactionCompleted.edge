@@ -1,0 +1,49 @@
+@layout('layouts.app')
+
+@section('content')
+<script>
+    var mywindow = window.open('', 'PRINT', 'height=400,width=600');
+    mywindow.document.write('<html><head><title> Reciept </title>');
+    mywindow.document.write('</head><body>');
+    mywindow.document.write('<h1 style="text-align:center"><u><b> FreshNGreen </b></u></h1>');
+    // userId,CartItems,currentDate,CartPrice
+    mywindow.document.write('<h2 style="text-align:center">Email Address :- {{userId}} <u><b></b></u></h2>');
+    mywindow.document.write('<table>')
+    mywindow.document.write('<tr><td>Date:</td><td> {{currentDate}} </td></tr>') 
+    </script>
+    @each(item in CartItems)
+    <script>
+    mywindow.document.write('<tr><td>Name:</td><td> {{item.name}} </td></tr>')
+    mywindow.document.write('<tr><td>Quantity:</td><td> {{item.quantity}} </td></tr>')
+    mywindow.document.write('<tr><td>Price:</td><td> ${{item.price}} </td></tr>')
+    </script>
+    @endeach
+    
+    <script>
+    mywindow.document.write('<tr><td>Total Price:</td><td> ${{CartPrice}} </td></tr>')    
+    mywindow.document.write('<table>')
+    mywindow.document.write('</body></html>');
+
+    mywindow.document.close();
+    mywindow.focus();
+
+    mywindow.print();
+    mywindow.close();
+</script>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <form action="/signInUser" method="POST" encType="multipart/form-data">
+                <div class="control-group">
+                    <div class="form-group floating-label-form-group controls">
+                        <h1>Transaction Completed</h1>
+                        <script>
+                        </script>
+                    </div>
+                </div>
+                
+            </form>
+        </div>
+    </div>
+</div>
+@endsection
