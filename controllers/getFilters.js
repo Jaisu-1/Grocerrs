@@ -3,7 +3,7 @@ const Item = require('../database/models/Item')
 module.exports =(req,res)=>{  
 
 
-    Item.find({},(err,data)=>{
+    Item.find({$and:[{available:true},{totalQuantity:{ $gt: 0 }}]},(err,data)=>{
         brandArray=[]
         categoryArray=[]
         minPrice=parseFloat(data[0].pricePerItem.value)

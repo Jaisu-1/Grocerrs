@@ -25,7 +25,8 @@ const TransactionSchema = new mongoose.Schema({
     totalPrice: {
         type: SchemaTypes.Double, 
         min: 0
-    }
+    },
+    deliveryAddress: String
 })
 
 const Transaction = mongoose.model('transaction',TransactionSchema)

@@ -1,45 +1,42 @@
 @layout('layouts.app')
 
 @section('content')
+<script>		
+    $(document).ready(function(){		
+        $("li").removeClass("active");		
+        $("li.purchase_history").addClass("active");		
+    });		
+</script>
+<div class="container">
     @if(EmptyCart)
         <h1>Cart is Empty</h1>
     @else
-        @each(t in transaction)
-        <div class="col-lg-12">
-          <div class="row">
-          
-        <div>
-          <br>
-         {{t._id}} <br>
-        {{t.timestamp}} <br>
-        ${{t.totalPrice}} <br>    
-        @each(item in t.items)
-        <div class="col-lg-3 col-md-6 mb-4" style="float : left">
-           <div class="card h-100">
-              <form action="/updateCart" method="POST">
-                <a href="#"><img class="card-img-top" src="{{item.imagePath}}" ></a>
-                <div class="card-body">
-                  <h4 class="card-title">
-                    <a href="/item/{{item.itemId}}">{{item.name}}</a>
-                  </h4>
-                  <h5>${{item.price}}</h5>
-                  <h5>{{item.quantity}}</h5>
-                  
-                </div>
-                
-             </form>
-            
-            </div>
-        </div>
-          <br>
-          @endeach
-        </div>
-      </div>
-        
-        @endeach
-        
-  
-    <h3>{{price}}</h3>
+    @each(t in transaction)
+    <div class="row all_purchases">
+    <div>
+    <h4>Transaction Number : {{t._id}}</h4>
+    <h4>Purchase Time : {{t.timestamp}}</h4>
+    <h4>Total Purchase Price : ${{t.totalPrice}}</h4>
+    <h4>Delivery Address: {{t.deliveryAddress}}</h4>
     </div>
+    <div class="row">
+    @each(item in t.items)
+    <div class="col-lg-4 col-md-6 mb-4">
+      <div class="card h-100 text-center">
+          <a href="#"><img class="card-img-top img-fluid" src="{{item.imagePath}}" alt="{{item.name}}"></a>
+          <div class="card-body">
+            <h4 class="card-title textlimit">
+              <a href="/item/{{item.itemId}}">{{item.name}}</a>
+            </h4>
+            <h5>Total Quanity : {{item.quantity}}</h5>
+            <h5>Total Price ${{item.price}}</h5>
+          </div>
+      </div>
+    </div>
+    @endeach
+    </div>
+    </div>
+    @endeach        
     @endif
+</div>
 @endsection

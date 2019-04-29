@@ -2,7 +2,8 @@ const transaction = require('../database/models/Transaction')
 const Item = require('../database/models/Item')
 module.exports = (req,res)=>{
     itemId=req.session.cart
-    item_price=req.body.price
+    address=req.body.address
+    console.log(address)
     userId=req.session.userId
     CartItems=req.session.cart.items
     CartPrice=req.session.cart.price
@@ -13,6 +14,7 @@ module.exports = (req,res)=>{
         items: CartItems,
         timestamp: currentDate,
         totalPrice: CartPrice,
+        deliveryAddress: address        
     },(error,transaction)=>{
         if(error)
         {
@@ -31,7 +33,7 @@ module.exports = (req,res)=>{
                     })            
             } 
         }
-        res.render('transactionCompleted',{userId,CartItems,currentDate,CartPrice})
+        res.render('transactionCompleted',{userId,CartItems,currentDate,CartPrice,address})
     })
     
 }

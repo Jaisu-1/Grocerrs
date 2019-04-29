@@ -5,22 +5,22 @@
     var mywindow = window.open('', 'PRINT', 'height=400,width=600');
     mywindow.document.write('<html><head><title> Reciept </title>');
     mywindow.document.write('</head><body>');
-    mywindow.document.write('<h1 style="text-align:center"><u><b> FreshNGreen </b></u></h1>');
-    // userId,CartItems,currentDate,CartPrice
-    mywindow.document.write('<h2 style="text-align:center">Email Address :- {{userId}} <u><b></b></u></h2>');
+    mywindow.document.write('<h3 style="text-align:center"><u><b> FreshNGreen </b></u></h1>');
+    // userId,CartItems,currentDate,CartPrice,address
+    mywindow.document.write('<h4 style="text-align:center">Username :- {{userId}} <u><b></b></u></h2>');
+    mywindow.document.write('<h4 style="text-align:center">Address :- {{address}} <u><b></b></u></h2>');
     mywindow.document.write('<table>')
-    mywindow.document.write('<tr><td>Date:</td><td> {{currentDate}} </td></tr>') 
+    mywindow.document.write('<tr><td colspan="3"> Date: {{currentDate}} </td></tr>') 
+    mywindow.document.write('<tr><td> Item Name </td><td> Quantity </td><td> Price </td></tr>')
     </script>
     @each(item in CartItems)
     <script>
-    mywindow.document.write('<tr><td>Name:</td><td> {{item.name}} </td></tr>')
-    mywindow.document.write('<tr><td>Quantity:</td><td> {{item.quantity}} </td></tr>')
-    mywindow.document.write('<tr><td>Price:</td><td> ${{item.price}} </td></tr>')
+    mywindow.document.write('<tr><td> {{item.name}} </td><td> {{item.quantity}} </td><td> ${{item.price}} </td></tr>')
     </script>
     @endeach
     
     <script>
-    mywindow.document.write('<tr><td>Total Price:</td><td> ${{CartPrice}} </td></tr>')    
+    mywindow.document.write('<tr><td colspan="3">Total Price: ${{CartPrice}} </td></tr>')    
     mywindow.document.write('<table>')
     mywindow.document.write('</body></html>');
 

@@ -7,10 +7,14 @@
   min-height: 100vh;
   position: relative;
   margin: 0;
-  padding-bottom: 10rem;
+  padding-bottom: 8rem;
 }
 
-nav{
+.main {
+  padding: 3rem;
+}
+
+nav.main_nav{
   background-image: linear-gradient(to top, #19d685, #09d089, #00c98c, #00c38e, #00bc90);
   height: 5rem;
 }
@@ -39,9 +43,10 @@ img.card-img-top {
   max-height: 56px;       /* fallback */
 }
 
-div.filter{
+div.filter,div.search{
   margin-top: 1.5rem;
   border-radius: 1rem;
+  max-height: 100%;
 }
 
 label {
@@ -58,8 +63,28 @@ div.card-header {
   max-height: 50vh;
   object-fit: scale-down;
 }
-div.item_details {
+
+.item_details{
   background-color: white;
-  border-radius: 0.5rem;
-  margin-top: 3rem;
+  border-radius: 1rem;
+}
+
+.all_purchases {
+  border: 0.1rem solid #00bc90;
+  border-radius: 1rem; 
+  margin: 1rem;
+  padding: 1rem;
+  background-color: white;
+  align-items: center;
+}
+
+ul.pagination > li{
+padding: 1rem;
+width: 100%;
+}
+
+div.page {
+  border-radius: 1rem;
+  background-color: white;
+  padding-left: 5rem;
 }

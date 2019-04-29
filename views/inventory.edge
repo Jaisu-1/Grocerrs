@@ -1,6 +1,12 @@
 @layout('layouts.app')
 
 @section('content')
+<script>		
+    $(document).ready(function(){		
+        $("li").removeClass("active");		
+        $("li.inventory").addClass("active");		
+    });		
+</script>
 @if(auth=='admin@admin.com')
 
   <!-- Page Content -->
@@ -18,11 +24,11 @@
             <div class="card h-100">
                 <a href="#"><img class="card-img-top" src="{{item.imagePath}}" alt=""></a>
                 <div class="card-body">
-                  <h4 class="card-title">
+                  <h4 class="card-title textlimit">
                     <a href="/item/{{item._id}}">{{item.name}}</a>
                   </h4>
                   <h5>{{item._id}}</h5>
-                  <h5>{{item.description}}</h5>
+                  <h5 class="textlimit">{{item.description}}</h5>
                   <h5>{{item.tags}}</h5>
                   <h5>{{item.totalQuantity}}</h5>
                   <h5>${{item.pricePerItem}}</h5>

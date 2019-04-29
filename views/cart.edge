@@ -46,8 +46,9 @@
         
     </div>
     </div>
-    <h3>{{price}}</h3>
+    <h3>Total Purchase: ${{price}}</h3>
     <form action="/storeTransaction" method="POST">
+      <input type="text" class="form form-control" name="address" required placeholder="Delivery Address">
         <button class="btn btn-primary">Check out & Pay</button>
     </form>  
     @endif

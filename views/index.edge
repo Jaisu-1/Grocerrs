@@ -1,7 +1,148 @@
 @layout('layouts.app')
 
 @section('content')
+<script>
+$(document).ready(function() {
+  var totalmin,totalmax,searchkey = "All",param1,param2,bestmin,bestmax;
+  $.getJSON("/getFilters" , function(result){
+    $.each(result.brand, function(index, element) {
+      //alert(element);
+      var temp = "<label><input type='checkbox' value='"+element+"'/>"+element+"</label><br>";
+      $(".brand").append(temp);
+    });
+    $.each(result.category, function(index, element) {
+      //alert(element);
+      var temp = "<label><input type='checkbox' value='"+element+"'/>"+element+"</label><br>";
+      $(".dept").append(temp);
+    });
+    var min = Math.floor( result.minPrice );
+    totalmin = min;
+    var max = Math.ceil( result.maxPrice );
+    totalmax = max;
+    if ((max - min) > 10) {
+    bits = Math.ceil((max - min) / 10);
+    var incr = min
+    for(var i = 0; i<bits;i++){
+      lower = incr;
+      //console.log(incr+10);
+      incr += 10;
+      higher = incr;
+      if ( incr > max){
+        higher = max;
+      }
+      var finalRange = "$ "+lower+" - "+higher;
+      //console.log(finalRange);
+      temp = "<label><input type='checkbox' class='inputprice' value='"+finalRange+"'/>"+finalRange+"</label><br>";
+      $(".pricelist").append(temp);
+      }  
+    }
+    $(".brand").bootstrapMaterialDesign();    
+    $(".dept").bootstrapMaterialDesign();
+    $(".pricelist").bootstrapMaterialDesign();
+  });
+  var plist = "";
+  var blist = "";
+  var dlist = ""; 
+  $('#search').on('input',function(e){
+    if ($(this).val().trim() == ""){
+      searchkey = "All";
+    }
+    else {
+      searchkey = $(this).val();
+    }
+      var slink = "";
+      if ($(".allbrand").attr("checked") && $(".alldept").attr("checked") && $(".allprice").attr("checked")) {
+         slink = "/SearchNFilter/"+searchkey+"/All/All/"+totalmin+"/"+totalmax;
+      }
+      else{
+         slink = "/SearchNFilter/"+searchkey+"/"+param1+"/"+param2+"/"+bestmin+"/"+bestmax;
+      }
+      $.getJSON(slink , function(result){
+     var searchData1="";
+     try{
+     $.each(result.items, function(index, element) {
+       searchData1=searchData1+'<div class="col-lg-4 col-md-6 mb-4"><div class="card h-100 text-center"><form action="/addToCart" method="POST"> <a href="#"><img class="card-img-top img-fluid" src="'+element.imagePath+'" alt="'+element.name+'"></a><div class="card-body"><h4 class="card-title textlimit"> <a href="/item/'+element._id+'">'+element.name+'</a></h4><h5>$'+element.pricePerItem+'</h5> <input type="text" style="display:none" name="_id" value="'+element._id+'"> <input type="text" style="display:none" name="price" value="'+element.pricePerItem+'"> <input type="text" style="display:none" name="imagePath" value="'+element.imagePath+'"> <input type="text" style="display:none" name="name" value="'+element.name+'"></div><div class="card-footer"> <button class="btn btn-success">Add to Cart</button></form> </div></div></div><br>';
+     });
+    }
+    catch(e){
+      searchData = "<div class='container' style='text-align: center'><h3>No Item found</h3></div>";
+    }
+     document.getElementById('list').innerHTML=searchData1;
+     $("ul.pagination li").not('li:first').remove();
+     jQuery.getScript('/vendor/page.js');  
+  
+  });
+});
+  $(document).on('change', 'input[type="checkbox"]', function(e){
+    var priceflag = 0;
+    if ($('.pricelist >> input[type="checkbox"]:checked').length > 1 ) {
+    $(".allprice").prop("checked",false);
+  }  
+  if ($('.pricelist >> input[type="checkbox"]:checked').length == 0 ) {
+    $(".allprice").prop("checked",true);
+  } 
+  if ($('.dept >> input[type="checkbox"]:checked').length > 1 ) {
+    $(".alldept").prop("checked",false);
+  }  
+  if ($('.dept >> input[type="checkbox"]:checked').length == 0 ) {
+    $(".alldept").prop("checked",true);
+  }   
+  if ($('.brand >> input[type="checkbox"]:checked').length > 1 ) {
+    $(".allbrand").prop("checked",false);
+  } 
+  if ($('.brand >> input[type="checkbox"]:checked').length == 0 ) {
+    $(".allbrand").prop("checked",true);
+  } 
+  $('.pricelist >> input[type="checkbox"]:checked').each( function (){
+    if ($(this).attr('value') == "All") {
+      priceflag = 1;
+    }
+    plist += $(this).attr('value')+",";
+  });
+  plist = plist.slice(0,-1);
+  $('.dept >> input[type="checkbox"]:checked').each( function (){
+    dlist += $(this).attr('value')+",";
+  });
+  dlist = dlist.slice(0,-1);
+  $('.brand >> input[type="checkbox"]:checked').each( function (){
+    blist += $(this).attr('value')+",";
+  });
+  blist = blist.slice(0,-1);
+  bestmin = parseInt(plist.substring(plist.indexOf("$") + 2, plist.indexOf("-")));
+  bestmax = parseInt(plist.substring(plist.lastIndexOf("-") + 2, plist.length));
+  if (priceflag == 1) {
+    bestmin = totalmin;
+    bestmax = totalmax;
+    priceflag = 0;
+  }
+  var final_link = "/SearchNFilter/"+searchkey+"/"+blist+"/"+dlist+"/"+bestmin+"/"+bestmax;
+  param1 = blist;
+  param2 = dlist;
+  console.log(final_link);
 
+   $.getJSON(final_link , function(result){
+     var searchData="";
+     try{
+     $.each(result.items, function(index, element) {
+       searchData=searchData+'<div class="col-lg-4 col-md-6 mb-4"><div class="card h-100 text-center"><form action="/addToCart" method="POST"> <a href="#"><img class="card-img-top img-fluid" src="'+element.imagePath+'" alt="'+element.name+'"></a><div class="card-body"><h4 class="card-title textlimit"> <a href="/item/'+element._id+'">'+element.name+'</a></h4><h5>$'+element.pricePerItem+'</h5> <input type="text" style="display:none" name="_id" value="'+element._id+'"> <input type="text" style="display:none" name="price" value="'+element.pricePerItem+'"> <input type="text" style="display:none" name="imagePath" value="'+element.imagePath+'"> <input type="text" style="display:none" name="name" value="'+element.name+'"></div><div class="card-footer"> <button class="btn btn-success">Add to Cart</button></form> </div></div></div><br>';
+     });
+    }
+    catch(e){
+      searchData = "<div class='container' style='text-align: center'><h3>No Item found</h3></div>";
+    }
+     document.getElementById('list').innerHTML=searchData;
+     $("ul.pagination li").not('li:first').remove(); 
+     jQuery.getScript('/vendor/page.js');  
+  });
+  //console.log(bestmin);
+  //console.log(blist);
+  //console.log(dlist);
+  plist = "";
+  blist = "";
+  dlist = "";
+});
+});
+</script>
 
   <!-- Page Content -->
   <div class="container">
@@ -9,20 +150,22 @@
     <div class="row">
 
       <div class="col-lg-3">
+          <div class="card search">
+              <div class="card-body ">
+                  <form>
+                        <input type="text" class="form-control" id="search" placeholder="Search">
+                    </form>   
+              </div>
+            </div>
           <div class="card filter">
               <div class="card-header">
                   <h4 class="my-4">Departments</h4>
                 </div>
-              <div class="card-body">
-                  <div class="checkbox card-text">
+              <div class="card-body ">
+                  <div class="checkbox card-text dept">
                     <label>
-                      <input type="checkbox" value="" checked>
+                      <input type="checkbox" value="All" class="alldept"checked>
                       All Departments
-                    </label>
-                    <br>
-                    <label>
-                      <input type="checkbox" value="">
-                      Snacks & Candy
                     </label>
                     <br>
                   </div>
@@ -34,15 +177,10 @@
                     <h4 class="my-4">Brands</h4>
                   </div>
                 <div class="card-body">
-                    <div class="checkbox card-text">
+                    <div class="checkbox card-text brand">
                       <label>
-                        <input type="checkbox" value="" checked>
+                        <input type="checkbox" value="All" class="allbrand" checked>
                         All Brands
-                      </label>
-                      <br>
-                      <label>
-                        <input type="checkbox" value="">
-                        KIND
                       </label>
                       <br>
                     </div>
@@ -53,15 +191,10 @@
                       <h4 class="my-4">Prices</h4>
                     </div>
                   <div class="card-body">
-                      <div class="checkbox card-text">
+                      <div class="checkbox card-text pricelist">
                         <label>
-                          <input type="checkbox" value="" checked>
+                          <input type="checkbox" value="All" class="allprice" checked>
                           All Prices
-                        </label>
-                        <br>
-                        <label>
-                          <input type="checkbox" value="">
-                          $0-5
                         </label>
                         <br>
                       </div>
@@ -80,13 +213,13 @@
           </ol>
           <div class="carousel-inner" role="listbox">
             <div class="carousel-item active">
-              <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="First slide">
+              <img class="d-block img-fluid" src="/items/banner3.jpg" alt="First slide">
             </div>
             <div class="carousel-item">
-              <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Second slide">
+              <img class="d-block img-fluid" src="/items/banner2.jpg" alt="Second slide">
             </div>
             <div class="carousel-item">
-              <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Third slide">
+              <img class="d-block img-fluid" src="/items/banner1.jpg" alt="Third slide">
             </div>
           </div>
           <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -98,12 +231,18 @@
             <span class="sr-only">Next</span>
           </a>
         </div>
-
-        <div class="row">
+<div>
+<div class ="container-fluid page">  
+<nav aria-label=... >
+    <ul class= "pagination">
+      <li id="previous-page"><a href="javascript:void(0)" aria-label=Previous><span aria-hidden=true>&laquo;</span></a></li>
+    </ul>
+  </nav></div>
+        <div class="row fulllist" id="list">
 
           @each(item in items)
-          <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card h-100 text-center">
+          <div class="col-lg-4 col-md-6 mb-4 each_item">
+          <div class="card h-100 text-center">
               <form action="/addToCart" method="POST">
                 <a href="#"><img class="card-img-top img-fluid" src="{{item.imagePath}}" alt="{{item.name}}"></a>
                 <div class="card-body">
@@ -144,4 +283,5 @@
 
   </div>
   <!-- /.container -->
+  <script src="/vendor/page.js"></script>
 @endsection
