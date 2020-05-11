@@ -1,9 +1,9 @@
 const mongoose = require('mongoose')
 require('mongoose-double')(mongoose);
 
-
 var SchemaTypes = mongoose.Schema.Types;
 const ItemSchema = new mongoose.Schema({
+    _id: String,
     name: String,
     description: String,
     imagePath: String,

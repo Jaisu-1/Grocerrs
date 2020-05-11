@@ -33,7 +33,7 @@ const getFilterController = require('./controllers/getFilters')
 
 
 const app = new express()
-mongoose.connect('mongodb://localhost/FreshNGreen')
+mongoose.connect('mongodb://localhost/Grocerrs')
 
 app.use(fileUpload())
 app.use(express.static('public'))

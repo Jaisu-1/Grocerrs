@@ -1,5 +1,11 @@
-const Item = require('../database/models/Item')
+var Item = require('../database/models/Item')
+mongoose = require('mongoose');
+
+console.log("This is item ", Item.body);
+
+
 module.exports = async(req,res)=>{
+    console.log(req.body)
     itemId=req.body.itemId
     quantity=req.body.quantity
     change=req.body.change
@@ -13,13 +19,14 @@ module.exports = async(req,res)=>{
         userId=req.session.userId
         if(req.session.cart)
         {
-            console.log("ALready Have a cart")
+            console.log("Cart already present")
             Cart=req.session.cart;
             console.log("hi")
             for(var i in Cart.items)
             {   total=0;
-                console.log(Cart.items[i].itemId)
-                const item = await Item.findById((Cart.items[i]).itemId)
+                console.log(itemId)
+                const item = Item.findById(Cart.items[i].ItemId);
+                console.log(item.totalQuantity);
                 quantityAvailable=item.totalQuantity;
                 console.log(quantityAvailable)
                 if(Cart.items[i].itemId==itemId)

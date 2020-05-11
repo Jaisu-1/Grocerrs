@@ -16,13 +16,14 @@ module.exports = async(req,res)=>{
 
     if(req.session.cart)
     {
-        console.log("ALready Have a cart")
+        console.log("This item is present in the cart")
         Cart=req.session.cart;
         alreadyPresent= false
 
         for(var i in Cart.items)
         {   total=0;
-            const item = await Item.findById((Cart.items[i]).itemId)
+            // const item = await Item.findById(req.params.id)
+            const item = Item.find((Cart.items[i]).ItemId)
             quantityAvailable=item.totalQuantity;
             console.log(quantityAvailable)
             console.log(Cart.items[i].itemId)
@@ -43,18 +44,18 @@ module.exports = async(req,res)=>{
         if(!alreadyPresent)
         {
 
-            Cart.items.push({"itemId":itemId,"quantity":1,"price":item_price,"name":item_name,"imagePath":item_imgPath})
+            Cart.items.push({"ItemId":itemId,"Quantity":1,"Price":item_price,"name":item_name,"imagePath":item_imgPath})
             Cart.price = (parseFloat(Cart.price,10)+parseFloat(item_price,10)).toFixed(2)+""
         }
         req.session.cart=Cart
-        console.log("Cart is here :",Cart)
+        console.log("The Cart :",Cart)
 
     }
     else
     {
-        console.log('Creating a cart')
+        console.log('The cart is being created')
         req.session.cart = {
-            items: Array({"itemId":itemId,"quantity":1,"price":item_price,"name":item_name,"imagePath":item_imgPath}),
+            items: Array({"ItemId":itemId,"Quantity":1,"Price":item_price,"name":item_name,"imagePath":item_imgPath}),
             price: item_price
         }
         

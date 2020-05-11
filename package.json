@@ -37,7 +37,7 @@
     "express-fileupload": "^1.1.4",
     "express-session": "^1.15.6",
     "jquery": "3.3.1",
-    "mongoose": "^5.4.22",
+    "mongoose": "^5.9.12",
     "mongoose-double": "0.0.1",
     "monk": "^6.0.6",
     "popper.js": "^1.15.0"

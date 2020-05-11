@@ -53,5 +53,5 @@ module.exports =(req,res)=>{
     })
 
     
-    // res.json({brand:['more','gogor','row'],category:['red','brown','green'],minPrice:0,maxPrice:12})
+    
 }

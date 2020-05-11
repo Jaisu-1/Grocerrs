@@ -15,12 +15,12 @@
 }
 
 nav.main_nav{
-  background-image: linear-gradient(to top, #19d685, #09d089, #00c98c, #00c38e, #00bc90);
+  background-image: linear-gradient(to top, #007bff, #007bff, #007bff, #007bff, #007bff);
   height: 5rem;
 }
 
 footer{
-  background-image: linear-gradient(to bottom, #19d685, #09d089, #00c98c, #00c38e, #00bc90);  position: absolute;
+  background-image: linear-gradient(to bottom, #007bff, #007bff, #007bff, #007bff, #007bff);  position: absolute;
   bottom: 0;
   width: 100%;
 }
@@ -70,7 +70,7 @@ div.card-header {
 }
 
 .all_purchases {
-  border: 0.1rem solid #00bc90;
+  border: 0.1rem solid #007bff;
   border-radius: 1rem; 
   margin: 1rem;
   padding: 1rem;

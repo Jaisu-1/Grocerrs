@@ -5,7 +5,7 @@
     var mywindow = window.open('', 'PRINT', 'height=400,width=600');
     mywindow.document.write('<html><head><title> Reciept </title>');
     mywindow.document.write('</head><body>');
-    mywindow.document.write('<h3 style="text-align:center"><u><b> FreshNGreen </b></u></h1>');
+    mywindow.document.write('<h3 style="text-align:center"><u><b> Grocerrs </b></u></h1>');
     // userId,CartItems,currentDate,CartPrice,address
     mywindow.document.write('<h4 style="text-align:center">Username :- {{userId}} <u><b></b></u></h2>');
     mywindow.document.write('<h4 style="text-align:center">Address :- {{address}} <u><b></b></u></h2>');
@@ -15,7 +15,7 @@
     </script>
     @each(item in CartItems)
     <script>
-    mywindow.document.write('<tr><td> {{item.name}} </td><td> {{item.quantity}} </td><td> ${{item.price}} </td></tr>')
+    mywindow.document.write('<tr><td> {{item.name}} </td><td> {{item.Quantity}} </td><td> ${{item.Price}} </td></tr>')
     </script>
     @endeach
     

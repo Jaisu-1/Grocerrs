@@ -10,7 +10,7 @@ module.exports = (req,res)=>{
 
     if(req.session.cart)
     {
-        console.log("Removing from carts")
+        console.log("Removing items from the carts")
         Cart=req.session.cart;
         console.log(Cart)
         alreadyPresent= false
@@ -19,7 +19,7 @@ module.exports = (req,res)=>{
             console.log(Cart.items[i].itemId)
             if(Cart.items[i].itemId==itemId)
             {   
-                console.log("My Cart")
+                console.log("The Cart")
                 console.log(Cart)
                 price=parseFloat(Cart.items[i].price,10)
                 Cart.price=parseFloat(Cart.price,10)-(price)+""
@@ -28,7 +28,7 @@ module.exports = (req,res)=>{
                 req.session.cart=Cart
             }
         }
-        console.log("Cart is here :",Cart)
+        console.log("The Cart is here :",Cart)
 
     }
     

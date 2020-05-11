@@ -23,7 +23,7 @@ module.exports = (req,res)=>{
         else{
             for (var i in CartItems)
             {
-                
+                console.log(CartItems[i].quantity)
                 Item.update(
                     { _id: CartItems[i].itemId },
                     {

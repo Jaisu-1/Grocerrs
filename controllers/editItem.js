@@ -4,7 +4,7 @@ module.exports = async(req,res) =>{
     
     if(req.files)
     {
-        console.log("Image Changed")
+        console.log("Image has been changed ")
         const { image } = req.files
         image.mv(path.resolve(__dirname,'..','public/items',image.name),(error)=>{
             stringOfTags=req.body.tags
@@ -25,7 +25,7 @@ module.exports = async(req,res) =>{
            })
     }
     else{
-        console.log("Image not changed")
+        console.log("Image has not been changed")
         stringOfTags=req.body.tags
             arrayOfTags=stringOfTags.split(",")
             Item.update(
