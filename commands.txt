@@ -1,3 +1,0 @@
-mongoimport --db FreshNGreen --collection items --file grocery-data.json --jsonArray
-db.items.createIndex( { name: "text", description: "text" } )
-
