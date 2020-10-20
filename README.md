@@ -2,10 +2,10 @@
 
 Grocerrs is the name of the Online Grocery Store project. It allows the user to search and filter on all the available items, see a detail description of every item along with the images, add items to the cart, option to see the past purchase history and also print the receipt after checkout. Additionally, the admin user can Insert new items, Update Items, Remove Items (Soft Delete) and look at the Archive Inventory of all the Items, along with the normal user functionalities.
 Assumptions made:
-•  Email address is the Username of the user
-•  All items, are sold in terms of no of quantity instead of oz. or lb. (Since, all the vegetables, fruits and fluids are wrapped/filled into bags and containers)
-•  User must enter a delivery address while checking out.
-•  Admin username is admin@admin.com.
+1. Email address is the Username of the user
+2.  All items, are sold in terms of no of quantity instead of oz. or lb. (Since, all the vegetables, fruits and fluids are wrapped/filled into bags and containers)
+3.  User must enter a delivery address while checking out.
+4.  Admin username is admin@admin.com.
 
 Note:- The Requirements for this projects are in requirements.pdf file.
 
