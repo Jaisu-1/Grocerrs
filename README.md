@@ -23,10 +23,10 @@ To run the website, follow the below steps:
 4. URL localhost:4000 can be used in any browser to use the Online Grocery Store.
 
 Note:- 
-I. Register with username "admin@admin.com" to use the admin account.
-II. Grocery images should be saved with item name i.e item-name.jpg.
-III. Remove button in the archive inventory page of admin account is used to permanently remove the item from database. 
-IV. There should be only two tags to the product and it should be in the format <category>,<brand-name>.
+1. Register with username "admin@admin.com" to use the admin account.
+2. Grocery images should be saved with item name i.e item-name.jpg.
+3. Remove button in the archive inventory page of admin account is used to permanently remove the item from database. 
+4. There should be only two tags to the product and it should be in the format <category>,<brand-name>.
 
 
 ## Database Design
